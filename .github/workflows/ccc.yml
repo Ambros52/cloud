@@ -4,7 +4,6 @@ jobs:
   botbotbot:
     runs-on: ubuntu-latest
     steps:
-      - uses: cloud/checkout@main
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
         
