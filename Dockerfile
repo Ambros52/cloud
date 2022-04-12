@@ -1,4 +1,9 @@
-FROM python:3.7-alpine
-WORKDIR /code
-COPY cloud /cloud
-ENTRYPOINT ["/cloud"]
+FROM python:3.7
+
+RUN pip install python-telegram-bot
+
+RUN mkdir /app
+ADD . /app
+WORKDIR /app
+
+CMD python /app/echobot.py
