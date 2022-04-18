@@ -1,0 +1,11 @@
+name: Bot
+on: [push]
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    name: bot
+    steps:
+      - name: run
+        uses: actions/checkout@v2
+        with:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
