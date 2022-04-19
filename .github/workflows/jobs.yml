@@ -6,12 +6,10 @@ jobs:
     name: bot
     steps:
       - name: run
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-  login:
-    runs-on: ubuntu-latest
-    steps:
+
       -
         name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -19,35 +17,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: user/app:latest
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.IP_ADDR }}
-        username: student
-        key: ${{ secrets.KEY }}
-        script: whoami
+          tags: ghcr.io/${{ github.actor }}/cloud:latest
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.IP_ADDR }}
+          username: student
+          key: ${{ secrets.KEY }}
+          script: whoami
