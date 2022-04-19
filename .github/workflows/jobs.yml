@@ -31,4 +31,4 @@ jobs:
           host: ${{ secrets.IP_ADDR }}
           username: student
           key: ${{ secrets.KEY }}
-          script: whoami
+          script: docker run --rm ghcr.io/ambros52/cloud:latest
