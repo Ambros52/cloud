@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ghcr.io/${{ github.actor }}/cloud:latest
+          tags: ghcr.io/ambros52/cloud:latest
 
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
